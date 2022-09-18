@@ -1,10 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
+import React, { Suspense } from 'react'
+import ReactDOM from 'react-dom/client'
+import { HashRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import store from './store'
+import App from '@/App'
+
+import 'normalize.css'
+import './asset/css/index.less'
+
+
+const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  // <React.StrictMode>
+  <Suspense fallback='loading'>
+    <Provider store={store}>
+      <HashRouter>
+        <App />
+      </HashRouter>
+    </Provider>
+  </Suspense>
+  // </React.StrictMode>
 );
+

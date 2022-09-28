@@ -7,12 +7,21 @@ module.exports = {
   // less
   plugins: [
     {
-      plugin: CracoLessPlugin
+      plugin: CracoLessPlugin,
+      options: {
+        lessLoaderOptions: {
+          lessOptions: {
+            modifyVars: {},
+            javascriptEnabled: true,
+          },
+        },
+      },
     },
   ],
   webpack: {
     alias: {
-      "@": resolve('src')
+      "@": resolve('src'),
+      // '@mui/styled-engine': '@mui/styled-engine-sc'
     },
   }
 }

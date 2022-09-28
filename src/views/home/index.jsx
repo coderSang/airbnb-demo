@@ -1,26 +1,30 @@
-import React, { memo, useEffect, useState } from 'react'
-import myRequest from '@/services'
+import React, { memo, useEffect } from 'react'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+
+import { fetchHomeDataAction } from '@/store/modules/home'
+import HomeBanner from './c-cpns/home-banner'
+import { HomeWrapper } from './style'
+import HomeSectionV1 from './c-cpns/home-section-v1'
 
 const Home = memo(() => {
-  const [ highScore, setHighScore ] = useState({})
-
+  // 从redux获取数据
+  const { goodPriceInfo, highScoreInfo } = useSelector((state) => ({
+    goodPriceInfo: state.home.goodPriceInfo,
+    highScoreInfo: state.home.highScoreInfo
+  }), shallowEqual)
+  // 派发事件
+  const dispatch = useDispatch()
   useEffect(()=>{
-    myRequest.get({url: '/home/highscore'}).then(res=>{
-      setHighScore(res)
-    })
-  }, [])
+    dispatch(fetchHomeDataAction())
+  }, [dispatch])
   return (
-    <div>
-      <h2>{highScore.title}</h2>
-      <h4>{highScore.subtitle}</h4>
-      <ul>
-        {
-          highScore?.list?.map((item) => {
-            return <li key={item.id}>{item.name}</li>
-          })
-        }
-      </ul>
-    </div>
+    <HomeWrapper>
+      <HomeBanner/>
+      <div className='content'>
+        <HomeSectionV1 infoData={goodPriceInfo}/>
+        <HomeSectionV1 infoData={highScoreInfo}/>
+      </div>
+    </HomeWrapper>
   )
 })
 

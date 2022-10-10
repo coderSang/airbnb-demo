@@ -16,15 +16,15 @@ import theme from './asset/theme'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   // <React.StrictMode>
-  <Suspense fallback='loading'>
-    <Provider store={store}>
+  <Provider store={store}>
+    <Suspense fallback='loading'>
       <ThemeProvider theme={theme}>
         <HashRouter>
           <App />
         </HashRouter>
       </ThemeProvider>
-    </Provider>
-  </Suspense>
+    </Suspense>
+  </Provider>
   // </React.StrictMode>
 );
 

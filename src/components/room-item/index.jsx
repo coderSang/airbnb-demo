@@ -15,7 +15,10 @@ const RoomItem = memo((props) => {
 
   const sliderRef = useRef()
   // 事件处理
-  function controlClickHandle(isRight = true) {
+  function controlClickHandle(isRight = true, e) {
+    // 阻止冒泡
+    e.stopPropagation()
+
     isRight ? sliderRef.current.next() : sliderRef.current.prev()
     let newIndex = isRight ? selectIndex + 1 : selectIndex - 1
     const length = itemData.picture_urls.length 
@@ -35,10 +38,10 @@ const RoomItem = memo((props) => {
   const sliderElement = (
     <div className='slider'>
       <div className='control'>
-        <div className='btn left' onClick={e => controlClickHandle(false)}>
+        <div className='btn left' onClick={e => controlClickHandle(false, e)}>
           <IconArrowLeft width='30' height='30'/>
         </div>
-        <div className='btn right' onClick={e => controlClickHandle(true)}>
+        <div className='btn right' onClick={e => controlClickHandle(true, e)}>
           <IconArrowRight width='30' height='30'/>
         </div>
       </div>
